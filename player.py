@@ -3,7 +3,7 @@ import json
 import sys
 
 class Player:
-    VERSION = "1.6"
+    VERSION = "1.7"
 
     def betRequest(self, game_state):
         current_buyin = (game_state["current_buy_in"])
@@ -32,7 +32,7 @@ class Player:
         else:
             print(hole_cards, sys.stderr)
 
-            return current_buyin - game_state["players"][in_action]["bet"]
+            return 0
 
     def showdown(self, game_state):
         pass
