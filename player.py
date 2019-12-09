@@ -16,9 +16,9 @@ class Player:
             if player["name"] == "CantoBright":
                 hole_cards = player["hole_cards"]
 
-        if current_buyin > small_blind * 4:
-            return 0
-        elif hole_cards[0]["rank"] == hole_cards[1]["rank"] or hole_cards[0]["rank"] in ["J", "Q", "K", "A"] or hole_cards[1]["rank"] in ["J", "Q", "K", "A"]:
+        # if current_buyin > small_blind * 4:
+        #     return 0
+        if hole_cards[0]["rank"] == hole_cards[1]["rank"] or hole_cards[0]["rank"] in ["J", "Q", "K", "A"] or hole_cards[1]["rank"] in ["J", "Q", "K", "A"]:
             print(hole_cards[0]["rank"], sys.stderr)
             print(hole_cards[1]["rank"], sys.stderr)
             print(hole_cards[0]["rank"] in ["J", "Q", "K", "A"], sys.stderr)
