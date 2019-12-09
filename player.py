@@ -3,7 +3,7 @@ import json
 import sys
 
 class Player:
-    VERSION = "2.3"
+    VERSION = "2.4"
 
     def betRequest(self, game_state):
         current_buyin = (game_state["current_buy_in"])
@@ -25,6 +25,7 @@ class Player:
         if len(comm_cards) == 0:
             if hole_cards[0]["rank"] == hole_cards[1]["rank"] or hole_cards[0]["rank"] in ["J", "Q", "K", "A"] or hole_cards[1]["rank"] in ["J", "Q", "K", "A"]:
                 return current_buyin - game_state["players"][in_action]["bet"]
+            return 0
         elif len(comm_cards) == 3:
             all_cards = [comm_cards[0]["suit"], comm_cards[1]["suit"], comm_cards[2]["suit"], hole_cards[0]["suit"], hole_cards[1]["suit"]]
             rank_cards = [comm_cards[0]["rank"], comm_cards[1]["rank"], comm_cards[2]["rank"], hole_cards[0]["rank"], hole_cards[1]["rank"]]
