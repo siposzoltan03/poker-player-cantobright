@@ -3,7 +3,7 @@ import sys
 
 
 class Player:
-    VERSION = "3.5"
+    VERSION = "3.6"
 
     def betRequest(self, game_state):
         current_buyin = (game_state["current_buy_in"])
@@ -68,7 +68,7 @@ class Player:
             if len(set(all_cards)) < 3 or len(set(rank_cards)) <= 3 and not(hole_cards[0]["rank"] in ["10", "J", "Q", "K", "A"] and
                     hole_cards[1]["rank"] in ["10", "J", "Q", "K", "A"]):
                 return game_state["players"][in_action]["stack"]
-            return current_buyin - game_state["players"][in_action]["bet"]
+            return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise + 1
         elif len(comm_cards) == 5:
             all_cards = [comm_cards[0]["suit"], comm_cards[1]["suit"], comm_cards[2]["suit"], comm_cards[3]["suit"],
                          comm_cards[4]["suit"],
@@ -86,7 +86,7 @@ class Player:
             if len(set(all_cards)) < 3 or len(set(rank_cards)) <= 3 and not(hole_cards[0]["rank"] in ["10", "J", "Q", "K", "A"] and
                     hole_cards[1]["rank"] in ["10", "J", "Q", "K", "A"]):
                 return game_state["players"][in_action]["stack"]
-            return current_buyin - game_state["players"][in_action]["bet"] + 1
+            return current_buyin - game_state["players"][in_action]["bet"]
         else:
             print(hole_cards, sys.stderr)
 
