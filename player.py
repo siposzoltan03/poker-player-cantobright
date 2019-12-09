@@ -3,7 +3,7 @@ import sys
 
 
 class Player:
-    VERSION = "3.4"
+    VERSION = "3.5"
 
     def betRequest(self, game_state):
         current_buyin = (game_state["current_buy_in"])
@@ -16,6 +16,11 @@ class Player:
         for player in game_state["players"]:
             if player["name"] == "CantoBright":
                 hole_cards = player["hole_cards"]
+        active_players = []
+        for player in game_state["players"]:
+            if player["status"] == "active":
+                active_players.append(player["name"])
+
 
         if len(comm_cards) == 0:
             # return game_state["players"][in_action]["stack"]
@@ -26,12 +31,13 @@ class Player:
             #         hole_cards[1]["rank"] in ["J", "Q", "K", "A"]):
             #     return current_buyin - game_state["players"][in_action]["bet"] + game_state["players"][in_action][
             #         "stack"] / 4
+
             if hole_cards[0]["rank"] == hole_cards[1]["rank"] or (hole_cards[0]["rank"] in ["10", "J", "Q", "K", "A"] and
                     hole_cards[1]["rank"] in ["10", "J", "Q", "K", "A"]):
-                return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise
+                return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise + 1
             if hole_cards[0]["rank"] == hole_cards[1]["rank"] or (hole_cards[0]["rank"] in ["K", "A"] or
                     hole_cards[1]["rank"] in ["K", "A"]):
-                return current_buyin - game_state["players"][in_action]["bet"]
+                return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise  + 1
             return 0
         elif len(comm_cards) == 3:
             all_cards = [comm_cards[0]["suit"], comm_cards[1]["suit"], comm_cards[2]["suit"], hole_cards[0]["suit"],
@@ -41,7 +47,7 @@ class Player:
             if (hole_cards[0]["rank"] == hole_cards[1]["rank"]
                     or hole_cards[0]["rank"] in [comm_cards[i]["rank"] for i in range(3)]
                     or hole_cards[1]["rank"] in [comm_cards[i]["rank"] for i in range(3)]):
-                return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise
+                return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise + 1
 
             if (len(set(all_cards)) < 3 or len(set(rank_cards)) <= 3) and not(hole_cards[0]["rank"] in ["10", "J", "Q", "K", "A"] and
                     hole_cards[1]["rank"] in ["10", "J", "Q", "K", "A"]):
@@ -75,12 +81,12 @@ class Player:
             if (hole_cards[0]["rank"] == hole_cards[1]["rank"]
                     or hole_cards[0]["rank"] in [comm_cards[i]["rank"] for i in range(3)]
                     or hole_cards[1]["rank"] in [comm_cards[i]["rank"] for i in range(3)]):
-                return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise
+                return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise + 1
 
             if len(set(all_cards)) < 3 or len(set(rank_cards)) <= 3 and not(hole_cards[0]["rank"] in ["10", "J", "Q", "K", "A"] and
                     hole_cards[1]["rank"] in ["10", "J", "Q", "K", "A"]):
                 return game_state["players"][in_action]["stack"]
-            return current_buyin - game_state["players"][in_action]["bet"]
+            return current_buyin - game_state["players"][in_action]["bet"] + 1
         else:
             print(hole_cards, sys.stderr)
 
