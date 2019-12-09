@@ -18,7 +18,7 @@ class Player:
 
         if current_buyin > small_blind * 4:
             return 0
-        elif hole_cards[0]["rank"] == hole_cards[1]["rank"]:
+        elif hole_cards[0]["rank"] == hole_cards[1]["rank"] or hole_cards[0]["rank"] in ["J", "Q", "K", "A"] or hole_cards[1]["rank"] in ["J", "Q", "K", "A"]:
             return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise
         else:
             # print(hole_cards, sys.stderr)
