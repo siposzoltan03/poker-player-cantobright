@@ -10,11 +10,15 @@ class Player:
         small_blind = game_state["small_blind"]
         in_action = game_state["in_action"]
         player_list = game_state
+        hole_cards = []
+        for player in game_state["players"]:
+            if player["name"] == "CantoBright":
+                hole_cards = player["hole_cards"]
 
         if current_buyin > small_blind * 2:
             return 0
         else:
-            print(game_state["players"][in_action]["hole_cards"], sys.stderr)
+            print(hole_cards, sys.stderr)
 
             return current_buyin - game_state["players"][in_action]["bet"]
 
