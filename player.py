@@ -3,7 +3,7 @@ import json
 import sys
 
 class Player:
-    VERSION = "1.2"
+    VERSION = "1.3"
 
     def betRequest(self, game_state):
         current_buyin = (game_state["current_buy_in"])
