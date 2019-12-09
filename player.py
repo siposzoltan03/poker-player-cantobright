@@ -34,9 +34,9 @@ class Player:
             rank_cards = [comm_cards[0]["rank"], comm_cards[1]["rank"], comm_cards[2]["rank"], hole_cards[0]["rank"], hole_cards[1]["rank"]]
             if len(set(all_cards)) < 3 or len(set(rank_cards)) <= 3:
                 return game_state["players"][in_action]["stack"]
-        elif len(comm_cards) == 4:
-
-        elif len(comm_cards) == 5:
+        # elif len(comm_cards) == 4:
+        #
+        # elif len(comm_cards) == 5:
 
         else:
             print(hole_cards, sys.stderr)
