@@ -14,7 +14,7 @@ class Player:
         if current_buyin > small_blind * 2:
             return 0
         else:
-            print(game_state["players"][in_action]["name"]["hole_cards"], sys.stderr)
+            print(game_state["players"][in_action]["hole_cards"], sys.stderr)
 
             return current_buyin - game_state["players"][in_action]["bet"]
 
