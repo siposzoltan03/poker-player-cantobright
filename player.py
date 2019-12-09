@@ -15,7 +15,7 @@ class Player:
             if player["name"] == "CantoBright":
                 hole_cards = player["hole_cards"]
 
-        if current_buyin > small_blind * 2:
+        if current_buyin > small_blind * 4:
             return 0
         else:
             print(hole_cards, sys.stderr)
