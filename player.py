@@ -3,7 +3,7 @@ import sys
 
 
 class Player:
-    VERSION = "3.0"
+    VERSION = "3.1"
 
     def betRequest(self, game_state):
         current_buyin = (game_state["current_buy_in"])
@@ -20,14 +20,15 @@ class Player:
         if len(comm_cards) == 0:
             # return game_state["players"][in_action]["stack"]
 
-            if current_buyin > 500:
-                return 0
-            if hole_cards[0]["rank"] == hole_cards[1]["rank"] and hole_cards[0]["rank"] in ["J", "Q", "K", "A"] and hole_cards[1]["rank"] in ["J", "Q", "K", "A"]:
-                return current_buyin - game_state["players"][in_action]["bet"] + game_state["players"][in_action][
-                    "stack"] / 4
-            elif hole_cards[0]["rank"] == hole_cards[1]["rank"] or hole_cards[0]["rank"] in ["J", "Q", "K", "A"] or \
-                    hole_cards[1]["rank"] in ["J", "Q", "K", "A"]:
-                return current_buyin - game_state["players"][in_action]["bet"]
+            # if current_buyin > 500:
+            #     return 0
+            # if hole_cards[0]["rank"] == hole_cards[1]["rank"] or (hole_cards[0]["rank"] in ["J", "Q", "K", "A"] and
+            #         hole_cards[1]["rank"] in ["J", "Q", "K", "A"]):
+            #     return current_buyin - game_state["players"][in_action]["bet"] + game_state["players"][in_action][
+            #         "stack"] / 4
+            if hole_cards[0]["rank"] == hole_cards[1]["rank"] or (hole_cards[0]["rank"] in ["J", "Q", "K", "A"] and
+                    hole_cards[1]["rank"] in ["J", "Q", "K", "A"]):
+                return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise
             return 0
         elif len(comm_cards) == 3:
             all_cards = [comm_cards[0]["suit"], comm_cards[1]["suit"], comm_cards[2]["suit"], hole_cards[0]["suit"],
@@ -43,9 +44,11 @@ class Player:
                 return game_state["players"][in_action]["stack"]
             return current_buyin - game_state["players"][in_action]["bet"]
         elif len(comm_cards) == 4:
-            all_cards = [comm_cards[0]["suit"], comm_cards[1]["suit"], comm_cards[2]["suit"], comm_cards[3]["suit"], hole_cards[0]["suit"],
+            all_cards = [comm_cards[0]["suit"], comm_cards[1]["suit"], comm_cards[2]["suit"], comm_cards[3]["suit"],
+                         hole_cards[0]["suit"],
                          hole_cards[1]["suit"]]
-            rank_cards = [comm_cards[0]["rank"], comm_cards[1]["rank"], comm_cards[2]["rank"], comm_cards[3]["rank"], hole_cards[0]["rank"],
+            rank_cards = [comm_cards[0]["rank"], comm_cards[1]["rank"], comm_cards[2]["rank"], comm_cards[3]["rank"],
+                          hole_cards[0]["rank"],
                           hole_cards[1]["rank"]]
             if (hole_cards[0]["rank"] == hole_cards[1]["rank"]
                     or hole_cards[0]["rank"] in [comm_cards[i]["rank"] for i in range(3)]
@@ -56,10 +59,12 @@ class Player:
                 return game_state["players"][in_action]["stack"]
             return current_buyin - game_state["players"][in_action]["bet"]
         elif len(comm_cards) == 5:
-            all_cards = [comm_cards[0]["suit"], comm_cards[1]["suit"], comm_cards[2]["suit"], comm_cards[3]["suit"],comm_cards[4]["suit"],
+            all_cards = [comm_cards[0]["suit"], comm_cards[1]["suit"], comm_cards[2]["suit"], comm_cards[3]["suit"],
+                         comm_cards[4]["suit"],
                          hole_cards[0]["suit"],
                          hole_cards[1]["suit"]]
-            rank_cards = [comm_cards[0]["rank"], comm_cards[1]["rank"], comm_cards[2]["rank"], comm_cards[3]["rank"], comm_cards[4]["rank"],
+            rank_cards = [comm_cards[0]["rank"], comm_cards[1]["rank"], comm_cards[2]["rank"], comm_cards[3]["rank"],
+                          comm_cards[4]["rank"],
                           hole_cards[0]["rank"],
                           hole_cards[1]["rank"]]
             if (hole_cards[0]["rank"] == hole_cards[1]["rank"]
