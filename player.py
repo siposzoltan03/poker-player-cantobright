@@ -3,7 +3,7 @@ import sys
 
 
 class Player:
-    VERSION = "3.3"
+    VERSION = "3.4"
 
     def betRequest(self, game_state):
         current_buyin = (game_state["current_buy_in"])
@@ -43,7 +43,8 @@ class Player:
                     or hole_cards[1]["rank"] in [comm_cards[i]["rank"] for i in range(3)]):
                 return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise
 
-            if len(set(all_cards)) < 3 or len(set(rank_cards)) <= 3:
+            if (len(set(all_cards)) < 3 or len(set(rank_cards)) <= 3) and not(hole_cards[0]["rank"] in ["10", "J", "Q", "K", "A"] and
+                    hole_cards[1]["rank"] in ["10", "J", "Q", "K", "A"]):
                 return game_state["players"][in_action]["stack"]
             return current_buyin - game_state["players"][in_action]["bet"]
         elif len(comm_cards) == 4:
@@ -58,7 +59,8 @@ class Player:
                     or hole_cards[1]["rank"] in [comm_cards[i]["rank"] for i in range(3)]):
                 return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise
 
-            if len(set(all_cards)) < 3 or len(set(rank_cards)) <= 3:
+            if len(set(all_cards)) < 3 or len(set(rank_cards)) <= 3 and not(hole_cards[0]["rank"] in ["10", "J", "Q", "K", "A"] and
+                    hole_cards[1]["rank"] in ["10", "J", "Q", "K", "A"]):
                 return game_state["players"][in_action]["stack"]
             return current_buyin - game_state["players"][in_action]["bet"]
         elif len(comm_cards) == 5:
@@ -75,7 +77,8 @@ class Player:
                     or hole_cards[1]["rank"] in [comm_cards[i]["rank"] for i in range(3)]):
                 return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise
 
-            if len(set(all_cards)) < 3 or len(set(rank_cards)) <= 3:
+            if len(set(all_cards)) < 3 or len(set(rank_cards)) <= 3 and not(hole_cards[0]["rank"] in ["10", "J", "Q", "K", "A"] and
+                    hole_cards[1]["rank"] in ["10", "J", "Q", "K", "A"]):
                 return game_state["players"][in_action]["stack"]
             return current_buyin - game_state["players"][in_action]["bet"]
         else:
