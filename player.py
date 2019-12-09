@@ -3,7 +3,7 @@ import json
 import sys
 
 class Player:
-    VERSION = "2.1"
+    VERSION = "2.2"
 
     def betRequest(self, game_state):
         current_buyin = (game_state["current_buy_in"])
@@ -24,15 +24,14 @@ class Player:
 
         if len(comm_cards) == 0:
             if hole_cards[0]["rank"] == hole_cards[1]["rank"] or hole_cards[0]["rank"] in ["J", "Q", "K", "A"] or hole_cards[1]["rank"] in ["J", "Q", "K", "A"]:
-                return min(current_buyin - game_state["players"][in_action]["bet"] + minimum_raise, game_state["players"][in_action]["stack"] / 2)
+                return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise
         elif len(comm_cards) == 3:
             all_cards = [comm_cards[0]["suit"], comm_cards[1]["suit"], comm_cards[2]["suit"], hole_cards[0]["suit"], hole_cards[1]["suit"]]
             rank_cards = [comm_cards[0]["rank"], comm_cards[1]["rank"], comm_cards[2]["rank"], hole_cards[0]["rank"], hole_cards[1]["rank"]]
             if(hole_cards[0]["rank"] == hole_cards[1]["rank"]
                                or hole_cards[0]["rank"] in [comm_cards[i]["rank"] for i in range(3)]
                                or hole_cards[1]["rank"] in [comm_cards[i]["rank"] for i in range(3)]):
-                return min(current_buyin - game_state["players"][in_action]["bet"] + minimum_raise * 2,
-                           game_state["players"][in_action]["stack"] / 2)
+                return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise
             if len(set(all_cards)) < 3 or len(set(rank_cards)) <= 3:
                 return game_state["players"][in_action]["stack"]
         # elif len(comm_cards) == 4:
