@@ -3,7 +3,7 @@ import sys
 
 
 class Player:
-    VERSION = "3.2"
+    VERSION = "3.3"
 
     def betRequest(self, game_state):
         current_buyin = (game_state["current_buy_in"])
@@ -26,11 +26,11 @@ class Player:
             #         hole_cards[1]["rank"] in ["J", "Q", "K", "A"]):
             #     return current_buyin - game_state["players"][in_action]["bet"] + game_state["players"][in_action][
             #         "stack"] / 4
-            if hole_cards[0]["rank"] == hole_cards[1]["rank"] or (hole_cards[0]["rank"] in ["J", "Q", "K", "A"] and
-                    hole_cards[1]["rank"] in ["J", "Q", "K", "A"]):
+            if hole_cards[0]["rank"] == hole_cards[1]["rank"] or (hole_cards[0]["rank"] in ["10", "J", "Q", "K", "A"] and
+                    hole_cards[1]["rank"] in ["10", "J", "Q", "K", "A"]):
                 return current_buyin - game_state["players"][in_action]["bet"] + minimum_raise
-            if hole_cards[0]["rank"] == hole_cards[1]["rank"] or (hole_cards[0]["rank"] in ["J", "Q", "K", "A"] or
-                    hole_cards[1]["rank"] in ["J", "Q", "K", "A"]):
+            if hole_cards[0]["rank"] == hole_cards[1]["rank"] or (hole_cards[0]["rank"] in ["K", "A"] or
+                    hole_cards[1]["rank"] in ["K", "A"]):
                 return current_buyin - game_state["players"][in_action]["bet"]
             return 0
         elif len(comm_cards) == 3:
